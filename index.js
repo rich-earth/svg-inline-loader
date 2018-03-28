@@ -3,7 +3,7 @@ var tokenize = simpleHTMLTokenizer.tokenize;
 var generate = simpleHTMLTokenizer.generate;
 var loaderUtils = require('loader-utils');
 var assign = require('object-assign');
-
+var minisvguri = require('mini-svg-data-uri');
 var conditions = require('./lib/conditions');
 var transformer = require('./lib/transformer');
 
@@ -53,7 +53,13 @@ function getExtractedSVG(svgStr, query) {
     }
 
     // If the token is <svg> start-tag, then remove width and height attributes.
-    return generate(transformer.runTransform(tokens, config));
+    var svgStr = generate(transformer.runTransform(tokens, config));
+
+    //if using mini-svg-data-uri, use it
+    if(query.miniUri)
+      svgStr = minisvguri(svgStr)
+
+    return svgStr;
 }
 
 function SVGInlineLoader(content) {

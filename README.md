@@ -82,6 +82,15 @@ Adds a prefix to ids to avoid collision across svg files.
 
 default: `idPrefix: false`
 
+
+#### `miniUri: boolean`
+
+Convert output to "minified" data uri using mini-svg-data-uri.
+See [mini-svg-data-uri](https://github.com/tigt/mini-svg-data-uri) for info.
+
+default: `idPrefix: false`
+
+
 <h2 align="center">Example Usage</h2>
 
 ```js
