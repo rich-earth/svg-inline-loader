@@ -81,10 +81,13 @@ function SVGInlineLoader(content) {
  *
  * @param {String} str htmlSet entities
  **/
-function decodeMinified(str) {
-    return str.replace(/&#(\d+);/g, function(match, dec) {
-        return String.fromCharCode(dec);
-    });
+function decodeMinified(str)
+{
+    str = str.replace("data:image/svg+xml,","");
+    str = decodeURI(str);
+    str = str.replace(/%2c/g,","); // commas dont get decoded for some reason
+
+    return str;
 }
 
 
