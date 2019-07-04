@@ -71,8 +71,26 @@ function SVGInlineLoader(content) {
     return "module.exports = " + JSON.stringify(getExtractedSVG(content, query));
 }
 
+/**
+ * Converts mini-svg-uri back to normal chars.
+ *
+ * Eg:
+ * %3csvg version='1.2'
+ * into
+ * <svg version='1.2'
+ *
+ * @param {String} str htmlSet entities
+ **/
+function decodeMinified(str) {
+    return str.replace(/&#(\d+);/g, function(match, dec) {
+        return String.fromCharCode(dec);
+    });
+}
+
+
 SVGInlineLoader.getExtractedSVG = getExtractedSVG;
 SVGInlineLoader.conditions = conditions;
 SVGInlineLoader.regexSequences = regexSequences;
+SVGInlineLoader.decodeMinified = decodeMinified;
 
 module.exports = SVGInlineLoader;
